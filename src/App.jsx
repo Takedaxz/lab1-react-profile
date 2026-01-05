@@ -9,6 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [theme, setTheme] = useState('light');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -35,6 +36,15 @@ function App() {
       setNewSkill('');
     }
   };
+
+  const deleteSkill = (indexToDelete) => {
+    const updatedSkills = skills.filter((_, index) => index !== indexToDelete);
+    setSkills(updatedSkills);
+  };
+
+  const filteredSkills = skills
+    .map((skill, index) => ({ name: skill, originalIndex: index }))
+    .filter(item => item.name.toLowerCase().includes(searchTerm.toLowerCase()));
 
   useEffect(() => {
     setLoading(true);
@@ -100,9 +110,40 @@ function App() {
           Add Skill
         </button>
       </div>
-      <ul style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 0, marginTop: '20px' }}>
-        {skills.map((skill, index) => (
-          <li key={index} style={{ padding: '5px 0' }}>{skill}</li>
+      <div style={{ marginTop: '10px' }}>
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search skill..."
+          style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}
+        />
+      </div>
+      <ul style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 0, marginTop: '20px', listStyle: 'none' }}>
+        {filteredSkills.map((item) => (
+          <li key={item.originalIndex} style={{
+            padding: '5px 0',
+            fontWeight: item.name.includes('React') ? 'bold' : 'normal',
+            color: item.name.includes('React') ? '#61dafb' : 'inherit',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px'
+          }}>
+            {item.name}
+            <button
+              onClick={() => deleteSkill(item.originalIndex)}
+              style={{
+                padding: '2px 8px',
+                borderRadius: '4px',
+                border: 'none',
+                backgroundColor: '#ff4d4d',
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '12px'
+              }}
+            >
+              x
+            </button>
+          </li>
         ))}
       </ul>
     </div>
