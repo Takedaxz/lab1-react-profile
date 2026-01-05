@@ -1,9 +1,23 @@
+import ProfileCard from './components/ProfileCard';
+
 function App() {
- return (
-  <div>
-    <h1>My First React App</h1>
-  </div>
- )
+  return (
+    <div style={{ textAlign: 'center', padding: '20px' }}>
+      <h1>My Team Portfolio</h1>
+      <ProfileCard
+          name="Pattaradanai Thanomsittikul"
+          role="Student @CEDT"
+          bio="Cool"
+        />
+
+        <ProfileCard
+          name="Jason Dohoe"
+          role="Student @CEDT"
+          bio="Warm"
+        />
+
+    </div>
+  );
 }
 
-export default App
+export default App;
