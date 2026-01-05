@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import ProfileCard from './components/ProfileCard';
 
+/**
+ * Root React component that renders the application UI including theme controls, skill management, and a GitHub profile view.
+ *
+ * Initializes and persists the UI theme to localStorage and applies corresponding body styles. Fetches GitHub user data for the username "takedaxz" and displays a loading indicator, an error message, or the user's profile. Manages a local list of skills with an input to add new skills.
+ *
+ * @returns {JSX.Element} The rendered application UI.
+ */
 function App() {
   const [githubData, setGithubData] = useState(null);
   const username = "takedaxz";
